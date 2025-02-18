@@ -10,10 +10,18 @@ This project uses `uv` for managing Python versions, dependencies, and the proje
 make setup
 ```
 
-Build the package.
+Once the project is setup with `uv`, create the virtual environment and install dependencies.
 
 ```sh
-make build
+make install
 ```
 
 See additional `make` targets by viewing the [Makefile](./Makefile) or by running `make help` (or just `make`).
+
+## Using the CLI
+
+Use `uv` to run `devkit` locally.
+
+```sh
+uv run devkit --help
+```

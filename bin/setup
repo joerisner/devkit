@@ -16,12 +16,12 @@ check_for_uv() {
 
 check_uv_config() {
   if [[ -z "${UV_DIR}" ]]; then
-    error "Missing requierror 'UV_DIR' environment variable."
+    error "Missing required'UV_DIR' environment variable."
     exit 1
   fi
 
   if [[ -z "${UV_CONFIG_FILE}" ]]; then
-    error "Missing requierror 'UV_CONFIG_FILE' environment variable."
+    error "Missing required 'UV_CONFIG_FILE' environment variable."
     exit 1
   fi
 

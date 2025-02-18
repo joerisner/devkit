@@ -1,18 +1,26 @@
 .DEFAULT_GOAL=help
-.PHONY: build clean help setup
-
-build: ## Build the package
-	@uv build
+.PHONY: clean help install lint package publish setup
 
 clean: ## Remove temporary artifacts
-	rm -rf ./dist
-	rm -rf ./.ruff_cache
+	@bin/clean
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"; \
-	printf "\nUsage:\n\033[35m\033[0m"} /^[$$()% a-zA-Z_-]+:.*?##/ { \
-	printf "  \033[35m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { \
+	printf "\nMake targets:\n\033[35m\033[0m"} /^[$$()% a-zA-Z_-]+:.*?##/ { \
+	printf "  \033[35;1m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { \
 	printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+install: ## Install dependencies and update the environment
+	@uv sync
+
+lint: ## Run lint and format checks
+	@uv run ruff check
+
+package: ## Build the package
+	@uv build
+
+publish: ## Install the CLI as a UV tool
+	@uv tool install . -e
 
 setup: ## Setup the project
 	@bin/setup
