@@ -1,20 +1,11 @@
-import subprocess
 from pathlib import Path
 
 import click
 
 from ..utils.rich_utils import get_rich_console
+from ..utils.shell_utils import run_cmd
 
 console = get_rich_console()
-
-
-def run_cmd(cmd: str, print_output: bool = False) -> str:
-    output = subprocess.check_output(cmd.split(' '), text=True).strip()
-
-    if print_output:
-        console.print(output)
-
-    return output
 
 
 def sync_repository(repository: str) -> None:
