@@ -2,7 +2,10 @@ from rich.console import Console
 from rich.theme import Theme
 
 
-def get_rich_console() -> Console:
-    return Console(
+def out(str, style=None):
+    """Print to the console using Rich."""
+    console = Console(
         theme=Theme({'error': 'bold red', 'success': 'bold green', 'warn': 'yellow', 'highlight': 'bold magenta'})
     )
+
+    console.print(str, style=style)

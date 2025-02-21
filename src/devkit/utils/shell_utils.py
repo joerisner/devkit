@@ -1,14 +1,13 @@
 import subprocess
 
-from .rich_utils import get_rich_console
-
-console = get_rich_console()
+from .rich_utils import out
 
 
-def run_cmd(cmd: str, print_output: bool = False) -> str:
+def run_cmd(cmd, print_output=False):
+    """Run a shell command and return its output."""
     output = subprocess.check_output(cmd.split(' '), text=True).strip()
 
     if print_output:
-        console.print(output)
+        out(output)
 
     return output
