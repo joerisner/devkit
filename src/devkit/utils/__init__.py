@@ -1,2 +1,2 @@
-from .rich_utils import out as out
-from .shell_utils import run_cmd as run_cmd
+from .rich_utils import error, out
+from .shell_utils import run_cmd
