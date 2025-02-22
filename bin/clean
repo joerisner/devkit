@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 remove_artifacts() {
-  ARTIFACTS=(./dist ./.ruff_cache ./src/devkit.egg-info)
+  ARTIFACTS=(./dist ./.ruff_cache)
 
   for ARTIFACT in "${ARTIFACTS[@]}"; do
     if [[ -d "${ARTIFACT}" ]]; then

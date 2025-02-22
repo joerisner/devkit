@@ -1,5 +1,8 @@
 .DEFAULT_GOAL=help
-.PHONY: clean help install lint package publish setup
+.PHONY: build clean help install lint setup
+
+build: ## Build the package
+	@uv build
 
 clean: ## Remove temporary artifacts
 	@bin/clean
@@ -15,12 +18,6 @@ install: ## Install dependencies and update the environment
 
 lint: ## Run lint and format checks
 	@uv run ruff check
-
-package: ## Build the package
-	@uv build
-
-publish: ## Install the CLI as a UV tool
-	@uv tool install . -e
 
 setup: ## Setup the project
 	@bin/setup
