@@ -2,17 +2,23 @@
 
 CLI tool providing convenience scripts for my local development.
 
-### Install devkit as a UV tool
+### Installation and usage
+
+Install devkit as a `uv` tool.
 
 ```sh
 uv tool install git+https://github.com/joerisner/devkit
 ```
 
+Once devkit is installed, as long as your `uv` tool bin dir is on your `PATH`, you should be able to run devkit without issue.
+
+```sh
+devkit --help
+```
+
 ## Development
 
-### Getting started
-
-This project uses `uv` for managing Python versions, dependencies, and the project's environment. Run the `setup` target to get started with `uv`.
+This project uses `uv` for managing Python versions, dependencies, and the project's environment. Run the (opinionated) `setup` target to get started with `uv`.
 
 ```sh
 make setup
@@ -28,7 +34,7 @@ See additional `make` targets by viewing the [Makefile](./Makefile) or by runnin
 
 ### Using the CLI
 
-Use `uv` to run `devkit` locally.
+During devleopment, se `uv` to run `devkit`.
 
 ```sh
 uv run devkit --help
