@@ -34,7 +34,7 @@ See additional `make` targets by viewing the [Makefile](./Makefile) or by runnin
 
 ### Using the CLI
 
-During devleopment, se `uv` to run `devkit`.
+During development, use `uv` to run `devkit`.
 
 ```sh
 uv run devkit --help
