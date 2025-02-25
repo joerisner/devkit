@@ -65,4 +65,4 @@ def sync():
 
         out(f'==> Updating {repository}', style='highlight')
         validate_directory(repository_path)
-        sync_repository(repository, repository_path)
+        sync_repository(repository_path)
