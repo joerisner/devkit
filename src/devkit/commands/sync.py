@@ -22,35 +22,47 @@ def validate_config(config):
         sys.exit(1)
 
 
-def get_repos():
+def get_repos_from_config():
     config = click.get_current_context().obj['config']
     validate_config(config)
 
     return config['sync']['repositories']
 
 
-def sync_repository(repository):
-    out(f'==> Updating {repository}', style='highlight')
-
-    path_to_repository = Path.home() / 'projects' / repository
-
-    if not path_to_repository.exists():
-        error(f"Could not find directory '{path_to_repository}'")
+def validate_directory(directory):
+    if not directory.exists():
+        error(f"Could not find directory '{directory}'")
         sys.exit(1)
 
-    git_status = run_cmd(f'git -C {path_to_repository} status -s')
+    rev_parse_cmd = run_cmd(['git', '-C', directory, 'rev-parse'])
 
-    if not git_status:
-        run_cmd(f'git -C {path_to_repository} checkout main')
-        run_cmd(f'git -C {path_to_repository} pull', print_output=True)
-    else:
+    if rev_parse_cmd.returncode != 0:
+        error(f'{directory} is not a git project')
+        sys.exit(rev_parse_cmd.returncode)
+
+
+def sync_repository(repository_path):
+    git_status = run_cmd(['git', '-C', repository_path, 'status', '-s'], return_output=True)
+
+    if git_status:
         out('Skipping this repo since there are local changes not yet committed', style='warn')
+        return
+
+    all_branches = run_cmd(['git', '-C', repository_path, 'remote', 'show', 'origin'], return_output=True)
+    default_branch = run_cmd(['awk', '/HEAD branch/ {print $NF}'], input=all_branches, return_output=True)
+
+    run_cmd(['git', '-C', repository_path, 'checkout', default_branch], print_output=True)
+    run_cmd(['git', '-C', repository_path, 'pull'], print_output=True)
 
 
 @click.command()
 def sync():
     """Sync local git repositories with remote versions"""
-    repositories = get_repos()
+    repositories = get_repos_from_config()
 
     for repository in repositories:
-        sync_repository(repository)
+        repository_path = Path.home() / 'projects' / repository
+
+        out(f'==> Updating {repository}', style='highlight')
+        validate_directory(repository_path)
+        sync_repository(repository, repository_path)
