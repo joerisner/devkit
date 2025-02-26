@@ -5,7 +5,7 @@ from .rich_utils import out
 
 def run_cmd(cmd, print_output=False, return_output=False, **kwargs):
     process = subprocess.run(cmd, capture_output=True, text=True, **kwargs)
-    output = process.stdout.strip() or process.stderr.strip()
+    output = process.stderr.strip() or process.stdout.strip()
 
     if print_output:
         out(output)
