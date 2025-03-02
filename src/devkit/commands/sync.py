@@ -42,7 +42,7 @@ def validate_directory(directory):
 
 
 def sync_repository(repository_path):
-    git_status = run_cmd(['git', '-C', repository_path, 'status', '-s'], return_output=True)
+    git_status = run_cmd(['git', '-C', repository_path, 'status', '--porcelain'], return_output=True)
 
     if git_status:
         out('Skipping this repo since there are local changes not yet committed', style='warn')
