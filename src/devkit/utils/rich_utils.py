@@ -11,5 +11,6 @@ def out(str, style=None):
 
 
 def error(str):
+    """Print stderr to the console using Rich."""
     console = Console(theme=theme, stderr=True)
     console.print(f'[error]Error:[/error] {str}')
